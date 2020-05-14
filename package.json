@@ -1,0 +1,26 @@
+{
+  "name": "az-cert-updater",
+  "version": "1.0.0",
+  "description": "A server-side utility for automatically updating a certificate in an Azure Key Vault",
+  "main": "app.js",
+  "scripts": {
+    "test": "node -r esm app.js"
+  },
+  "keywords": [
+    "Azure",
+    "Microsoft",
+    "certificate",
+    "ssl",
+    "vault"
+  ],
+  "author": "Daniel J. Resch",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/identity": "^1.0.3",
+    "@azure/keyvault-certificates": "^4.0.0",
+    "@types/node": "^14.0.1",
+    "esm": "^3.2.25",
+    "fs-extra": "^9.0.0",
+    "log4js": "^6.2.1"
+  }
+}

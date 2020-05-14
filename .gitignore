@@ -1,0 +1,12 @@
+# NodeJS
+node_modules/
+
+# Secure files
+.env
+config.js
+
+# Log Files
+logs/
+
+# VS Code
+.vscode
