@@ -1,8 +1,7 @@
 # NodeJS
 node_modules/
 
-# Secure files
-.env
+# Secure resources
 config.js
 
 # Log Files
