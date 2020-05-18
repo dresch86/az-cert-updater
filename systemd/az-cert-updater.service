@@ -7,3 +7,6 @@ Type=oneshot
 WorkingDirectory=/opt/az-cert-updater
 ExecStart=/usr/bin/node -r esm app.js
 ExecStartPost=/bin/systemctl restart apache2
+
+[Install]
+WantedBy=multi-user.target
