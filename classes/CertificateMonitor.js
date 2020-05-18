@@ -1,3 +1,4 @@
+import path from 'path';
 import spawn from 'await-spawn';
 import chokidar from 'chokidar';
 import * as log4js from 'log4js';
@@ -16,7 +17,7 @@ export default class CertificateMonitor {
         this.ccAzureCertClient = azureCertClient;
     }
 
-    async updateAzureCertificate() {
+    async updateAzureCertificate(path, stats) {
         try {
             let blPEMtoPFXOutput;
 
@@ -55,15 +56,15 @@ export default class CertificateMonitor {
         this.aCommandArgs = ['pkcs12', '-export'];
 
         if (this.oCertFiles.hasOwnProperty('cert')) {
-            this.aCommandArgs.push('-in', this.oCertFiles.cert);
+            this.aCommandArgs.push('-in', path.resolve(certDir, this.oCertFiles.cert));
         }
 
         if (this.oCertFiles.hasOwnProperty('chain')) {
-            this.aCommandArgs.push('-certfile', this.oCertFiles.chain);
+            this.aCommandArgs.push('-certfile', path.resolve(certDir, this.oCertFiles.chain));
         }
 
         if (this.oCertFiles.hasOwnProperty('privateKey')) {
-            this.aCommandArgs.push('-inkey', this.oCertFiles.privateKey);
+            this.aCommandArgs.push('-inkey', path.resolve(certDir, this.oCertFiles.privateKey));
         }
 
         if (this.sCertPass.length > 0) {
@@ -71,6 +72,6 @@ export default class CertificateMonitor {
         }
 
         let chWatcher = chokidar.watch(certDir, { persistent: true });
-        chWatcher.on('change', () => this.updateAzureCertificate());
+        chWatcher.on('change', (path, stats) => this.updateAzureCertificate(path, stats));
     }
 }
