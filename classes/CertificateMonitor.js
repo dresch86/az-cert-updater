@@ -1,3 +1,4 @@
+import spawn from 'await-spawn';
 import chokidar from 'chokidar';
 import * as log4js from 'log4js';
 
