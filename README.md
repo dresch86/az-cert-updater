@@ -7,12 +7,11 @@ The Azure Certificate Updater monitors a local certificate file on a VM for chan
 * OpenSSL
 
 ### __Setup:__
-1. `git clone https://github.com/dresch86/az-certfetcher.git`
-2. `cd az-certfetcher`
-1. `cp .env.sample .env`
-1. Edit `.env` to include Azure credentials and set install path / filename
-1. `chmod 600 .env`
-1. `cp az-certfetcher.service /etc/systemd/system/az-certfetcher.service`
-1. `cp az-certfetcher.timer /etc/systemd/system/az-certfetcher.timer`
-1. `systemctl enable az-certfetcher.timer`
-1. `systemctl start az-certfetcher.timer`
+1. `git clone https://github.com/dresch86/az-cert-updater.git`
+2. `cd az-cert-updater`
+1. `cp config.sample.js config.js`
+1. Edit `config.js` to include Azure credentials and certificate(s) directory and files
+1. `chmod 600 config.js`
+1. `cp systemd/az-cert-updater.service /etc/systemd/system/az-cert-updater.service`
+1. `systemctl enable az-cert-updater.service`
+1. `systemctl start az-cert-updater.service`
