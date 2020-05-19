@@ -73,5 +73,6 @@ export default class CertificateMonitor {
 
         let chWatcher = chokidar.watch(certDir, { persistent: true });
         chWatcher.on('change', (path, stats) => this.updateAzureCertificate(path, stats));
+        chWatcher.on('error', error => Logger.error(error));
     }
 }
