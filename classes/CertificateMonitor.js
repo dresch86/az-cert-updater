@@ -16,8 +16,16 @@ export default class CertificateMonitor {
 
     async updateAzureCertificate(path, stats) {
         try {
-            let bufPFXData = await fs.readFile(path);
-            this.ccAzureCertClient.importCertificate(this.sName, bufPFXData.toString('base64'), { enabled: true, password: this.sCertPass });
+            // Cache the old cert for disabling later
+            let latestCertificate = await this.ccAzureCertClient.getCertificate(this.sName);
+
+            // Upload the new cert
+            this.ccAzureCertClient.importCertificate(this.sName, (await fs.readFile(path)), { enabled: true, password: this.sCertPass });
+
+            // Disable the old cert
+            await this.ccAzureCertClient.updateCertificateProperties(certificateName, latestCertificate.properties.version, {
+                enabled: false
+            });
         } catch (err) {
             Logger.fatal(err.message);
         }
