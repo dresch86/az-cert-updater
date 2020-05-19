@@ -14,13 +14,7 @@ module.exports = {
         {
             name: "AzureCertName",
             certPassword: "my-cert-password-no-special-chars",
-            certDir: "/etc/letsencrypt/myacct/live",
-            certFiles: 
-            {
-                cert: "cert.pem",
-                chain: "chain.pem",
-                privateKey: "privkey.pem"
-            }
+            certFilePFX: "bundle.pfx"
         }
     ]
 }

@@ -10,7 +10,7 @@ The Azure Certificate Updater monitors a local certificate file on a VM for chan
 1. `git clone https://github.com/dresch86/az-cert-updater.git`
 2. `cd az-cert-updater`
 1. `cp config.sample.js config.js`
-1. Edit `config.js` to include Azure credentials and certificate(s) directory and files
+1. Edit `config.js` to include Azure credentials and absolute path to certificate(s) files
 1. `chmod 600 config.js`
 1. `cp systemd/az-cert-updater.service /etc/systemd/system/az-cert-updater.service`
 1. `systemctl enable az-cert-updater.service`

@@ -24,10 +24,10 @@ const Logger = log4js.getLogger('AzCertUpdater');
     let ccCertClientRes = new CertificateClient(url, micCredentialHandler);
 
     appCfg.certificates.forEach(certificateMonitored => {
-        if (ConfigValidator.certFilesExist(certificateMonitored)) {
+        if (ConfigValidator.certFileAccessible(certificateMonitored.certFilePFX)) {
             let cmCertMonitor = new CertificateMonitor(certificateMonitored.name, ccCertClientRes);
             cmCertMonitor.setCertPassword(certificateMonitored.certPassword);
-            cmCertMonitor.monitorCert(certificateMonitored.certDir, certificateMonitored.certFiles);
+            cmCertMonitor.monitorCert(certificateMonitored.certFilePFX);
         } else {
             throw new Error('Invalid certificate file path(s)');
         }
