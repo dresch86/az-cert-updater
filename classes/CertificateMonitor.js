@@ -19,11 +19,11 @@ export default class CertificateMonitor {
             // Cache old cert version for disabling later
             let oldCertificateVersion = (await this.ccAzureCertClient.getCertificate(this.sName)).properties.version;
 
-            // Disable the old cert
-            await this.ccAzureCertClient.updateCertificateProperties(this.sName, oldCertificateVersion, { enabled: false });
-
             // Upload the new cert
             await this.ccAzureCertClient.importCertificate(this.sName, (await fs.readFile(path)), { enabled: true, password: this.sCertPass });
+
+            // Disable the old cert
+            await this.ccAzureCertClient.updateCertificateProperties(this.sName, oldCertificateVersion, { enabled: false });
         } catch (err) {
             Logger.fatal(err.message);
         }
