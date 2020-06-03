@@ -18,7 +18,7 @@ log4js.configure({
 
 const Logger = log4js.getLogger('AzCertUpdater');
 
-(async () => {
+(() => {
     let url = `https://${vaultName}.vault.azure.net`;
     let micCredentialHandler = new ManagedIdentityCredential(managedIdentityClientId);
     let ccCertClientRes = new CertificateClient(url, micCredentialHandler);
@@ -35,7 +35,4 @@ const Logger = log4js.getLogger('AzCertUpdater');
 })()
 .catch(err => {
     Logger.fatal(err.message);
-})
-.finally(() => {
-    Logger.info('AzCertUpdater exited');
 });
