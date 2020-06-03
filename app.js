@@ -23,16 +23,17 @@ const Logger = log4js.getLogger('AzCertUpdater');
     let micCredentialHandler = new ManagedIdentityCredential(managedIdentityClientId);
     let ccCertClientRes = new CertificateClient(url, micCredentialHandler);
 
-    appCfg.certificates.forEach(certificateMonitored => {
-        if (ConfigValidator.certFileAccessible(certificateMonitored.certFilePFX)) {
-            let cmCertMonitor = new CertificateMonitor(certificateMonitored.name, ccCertClientRes);
-            cmCertMonitor.setCertPassword(certificateMonitored.certPassword);
-            cmCertMonitor.monitorCert(certificateMonitored.certFilePFX);
-        } else {
-            throw new Error('Invalid certificate file path(s)');
+    appCfg.certificates.forEach(async (certificateMonitored) => {
+        try {
+            if (await ConfigValidator.certFileAccessible(certificateMonitored.certFilePFX)) {
+                let cmCertMonitor = new CertificateMonitor(certificateMonitored.name, ccCertClientRes);
+                cmCertMonitor.setCertPassword(certificateMonitored.certPassword);
+                cmCertMonitor.monitorCert(certificateMonitored.certFilePFX);
+            } else {
+                throw new Error('Invalid certificate file path(s)');
+            }
+        } catch (err) {
+            Logger.fatal(err.message);
         }
     });
 })()
-.catch(err => {
-    Logger.fatal(err.message);
-});
