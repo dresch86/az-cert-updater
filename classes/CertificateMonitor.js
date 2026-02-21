@@ -1,6 +1,9 @@
 import * as fs from 'fs-extra';
 import chokidar from 'chokidar';
-import * as log4js from 'log4js';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const log4js = require('log4js');
 
 const Logger = log4js.getLogger('AzCertUpdater');
 

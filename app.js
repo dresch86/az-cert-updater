@@ -1,14 +1,17 @@
-import * as log4js from 'log4js';
-import * as appCfg from './config';
+import appCfg from './config.js';
+import { createRequire } from 'module';
 
-import ConfigValidator from './classes/ConfigValidator';
-import CertificateMonitor from './classes/CertificateMonitor';
+import ConfigValidator from './classes/ConfigValidator.js';
+import CertificateMonitor from './classes/CertificateMonitor.js';
 
 import { ManagedIdentityCredential } from '@azure/identity';
 import { CertificateClient } from '@azure/keyvault-certificates';
 
 const vaultName = appCfg.azureCfg.keyVaultName;
 const managedIdentityClientId = appCfg.azureCfg.managedIdClientId;
+
+const require = createRequire(import.meta.url);
+const log4js = require('log4js');
 
 log4js.configure({
     appenders: { main: { type: 'file', filename: appCfg.logging.path } },

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A server-side utility for automatically updating a certificate in an Azure Key Vault",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "node -r esm app.js"
   },

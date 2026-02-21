@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     azureCfg: {
         tenantId: "azure-ad-tenant-id",
         managedIdClientId: "managed-identity-client-id",
